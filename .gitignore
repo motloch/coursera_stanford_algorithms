@@ -130,3 +130,6 @@ dmypy.json
 
 #Vim
 .*swp
+
+#Do not publish homework solutions
+homework
