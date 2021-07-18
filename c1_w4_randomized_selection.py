@@ -10,8 +10,8 @@ random.seed(41)
 
 def choose_pivot_idx(arr, idx_start, idx_end, order_statistic_i):
     """
-    A routine that returns a pivot to use in the Randomized Selection algorithm when
-    searching for "order_statistic_i"-th smallest element of the array 
+    A routine that returns an index of a pivot to use in the Randomized Selection
+    algorithm when searching for "order_statistic_i"-th smallest element of the array 
     arr[idx_start : idx_end+1]
 
     Allows for a quick modification (pick random element, pick first element, ...),

@@ -7,10 +7,10 @@ Algorithms' course on Coursera (Algorithms Specialization, Stanford University)
 import random
 random.seed(41)
 
-def choose_pivot_idx(arr,idx_start, idx_end):
+def choose_pivot_idx(arr, idx_start, idx_end):
     """
-    A routine that returns a pivot to use in the Quick sort algorithm when sorting array
-    "arr" between indices idx_start and idx_end
+    A routine that returns an index of a pivot to use in the Quick sort algorithm when
+    sorting array arr[idx_start : idx_end+1]
 
     Allows for a quick modification (pick random element, pick first element, ...)
 
