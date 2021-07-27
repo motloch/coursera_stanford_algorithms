@@ -5,8 +5,6 @@ pivot chosen as median of medians)
 Based on the Week Four of the 'Divide and Conquer, Sorting and Searching, and Randomized
 Algorithms' course on Coursera (Algorithms Specialization, Stanford University)
 """
-import random
-random.seed(41)
 
 GROUP_SIZE = 5 #Size of the group used in median of medians calculation
 
@@ -21,8 +19,7 @@ def sort_and_get_median(arr):
 def median_of_medians(arr):
     """
     Splits the input array into groups of size GROUP_SIZE, calculates median in each group
-    and recursively repeats the procedure (calculating median of medians of medians ...)
-    until we end up with a single element
+    and calls the Deterministic Selection algorithm to find median of medians
     """
     if len(arr) <= GROUP_SIZE:
         return sort_and_get_median(arr)
@@ -36,11 +33,13 @@ def median_of_medians(arr):
                     for i 
                     in range(num_groups)
                   ]
-        return median_of_medians(medians)
+
+        #Use recursion to get median of the medians
+        return deterministic_selection(medians, 0, num_groups-1, (num_groups-1)//2)
 
 def choose_pivot_idx(arr, idx_start, idx_end, order_statistic_i):
     """
-    A routine that returns a pivot to use in the Randomized Selection algorithm when
+    A routine that returns a pivot to use in the Deterministic Selection algorithm when
     searching for "order_statistic_i"-th smallest element of the array 
     arr[idx_start : idx_end+1]
 
@@ -55,9 +54,9 @@ def choose_pivot_idx(arr, idx_start, idx_end, order_statistic_i):
         if arr[idx] == pivot:
             return idx
 
-def randomized_selection(arr, idx_start, idx_end, order_statistic_i):
+def deterministic_selection(arr, idx_start, idx_end, order_statistic_i):
     """
-    Implementation of the Randomized Selection algorithm 
+    Implementation of the Deterministic Selection algorithm 
     
     Find "order_statistic_i"-th smallest element of array arr[idx_start : idx_end+1]
     (for order_statistic_i == 1 finds the smallest element)
@@ -107,14 +106,14 @@ def randomized_selection(arr, idx_start, idx_end, order_statistic_i):
     if idx_first_larger_than_pivot == idx_start + order_statistic_i:
         return pivot
     elif idx_first_larger_than_pivot < idx_start + order_statistic_i:
-        return randomized_selection(
+        return deterministic_selection(
                     arr, 
                     idx_first_larger_than_pivot, 
                     idx_end,
                     order_statistic_i - idx_first_larger_than_pivot + idx_start
                 )
     else:
-        return randomized_selection(
+        return deterministic_selection(
                     arr, 
                     idx_start,
                     idx_first_larger_than_pivot - 1, 
@@ -125,8 +124,8 @@ if __name__ == "__main__":
     #Test it out on a few simple examples
     for idx in range(1,8):
         arr = [5, 6, 1, 4, 7, 2, 3]
-        assert(randomized_selection(arr, 0, 6, idx) == idx)
+        assert(deterministic_selection(arr, 0, 6, idx) == idx)
 
     for idx in range(1, 12):
         arr = [5, 6, 1, 4, 7, 2, 3, 8, 9, 10, 11]
-        assert(randomized_selection(arr, 0, 10, idx) == idx)
+        assert(deterministic_selection(arr, 0, 10, idx) == idx)
