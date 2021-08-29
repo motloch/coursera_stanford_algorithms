@@ -40,12 +40,11 @@ def find_shortest_path(g, starting_vertex):
     #Initialize the breadth first search
     out[starting_vertex] = 0
     queue = [starting_vertex]
-    processed_vertices = 0 #next to take from the queue
 
     #Iterate while we have unprocessed vertices
-    while processed_vertices < len(queue):
+    while len(queue) > 0:
 
-        current_vertex = queue[processed_vertices]
+        current_vertex = queue.pop(0)
         neighbors = g.edges_from_vertices[current_vertex]
 
         #Check vertices reachable from current vertex
@@ -53,8 +52,6 @@ def find_shortest_path(g, starting_vertex):
             if out[n] == -1:        #Is it newly discovered?
                 out[n] = out[current_vertex] + 1
                 queue.append(n)
-
-        processed_vertices += 1
 
     return out
 
